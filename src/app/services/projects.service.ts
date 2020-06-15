@@ -27,6 +27,7 @@ export class ProjectsService {
       localStorage.setItem('token', objToken.token);
     })
   }
+
   getAllProjects() : Promise<Project[]> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -35,4 +36,15 @@ export class ProjectsService {
     };
     return this.httpClient.get<Project[]>(this.baseUrl + this.projectsUrl, httpOptions).toPromise()
   }
+
+  getProjectsByCategory(projectCategory: string) : Promise<Project[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'access-token': localStorage.getItem('token'),
+      })
+    };
+
+    return this.httpClient.get<Project[]>(this.baseUrl + this.projectsUrl + '/' + projectCategory, httpOptions).toPromise()
+  }
+
 }
